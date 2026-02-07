@@ -1,0 +1,2 @@
+Todo algoritmo criado envolve desempenho porque consequentemente envolve memoria e processamento gasto no tempo em execucao, e o fator tempo tambem e determinante.
+Entao talvez em algum nivel
