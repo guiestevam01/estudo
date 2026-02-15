@@ -1,2 +1,12 @@
 Todo algoritmo criado envolve desempenho porque consequentemente envolve memoria e processamento gasto no tempo em execucao, e o fator tempo tambem e determinante.
-Entao talvez em algum nivel
+Entao em algum nivel eu to pensando tambem em tempo de processamento.
+Para um problema posso ter N resolucoes possiveis, isto e, N algoritmos possiveis. O que seria analisar qual algoritmo pode ser o mais eficiente. Mas o que seria uma algoritmo eficiente?(q1)
+Para cormen um algoritmo e um procedimento computacional em que vou ter uma certra entrada e produzo uma saida.
+Analisar um algoritmo e observar seu desempenho apos sua implementacao. Memoria, largura de banda de comunicacao ou hardware.
+Qual o custo desse meu algoritmo para resolucao de um problema?
+O custo do algortimo deve levar em conta o compilador, hardware, memoria.
+
+Tempo de execucao de um algoritmo T, onde T(N) e a medidade de tempo necessaria para executa um algoritmo para um problema de tamanho n
+T nesse caso e funcao complexidade de tempo do algortimo.
+Se t(n) e a medida de memoria necessaria para executar o algoritmo entao t e chamada de funcao de complexidade de espaco. 
+Em um laco for seria o numero de comparacoes que ocorre entre elementos

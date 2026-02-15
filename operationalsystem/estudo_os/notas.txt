@@ -1,0 +1,12 @@
+--bin indica que queremos criar um executavel binario.
+Se estamos querendo construir um so entao nao usaremos bibliotecas e recursos de um SO. Todos crates Rust vincula a biblioteca padrao e tambem depende de libc do c. Para nao vincular a bibliotecas desativa usando no_std:
+
+// main.rs
+
+#![no_std]
+
+fn main() {
+    println!("Olá, mundo!");
+}
+
+

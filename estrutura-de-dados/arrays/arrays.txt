@@ -1,0 +1,11 @@
+arrays possuem um tamanho fixo e so armazena dados do mesmo tipo.
+Pelo visto em java e armazenado em memorias sequenciais.
+Tipo um inteiro de quatro bytes seria como:
+
+arr : { 10(0x100) | 20(0x104 ... } ele vai de quatro em 4 pois obviamente ocupa 4 bytes de memoria
+Entao de fato ele aloca uma estrutura de dados definida baseada no tipo de dado. O acesso para cada posicao e O(1)
+Se quero acessar um indicie, ele sabe onde esta pois blocos sao sequenciais.
+
+ARRAYLIST
+Representa colecoes de dados. A diferenca e que usa Collections e que o tamanho do array e dinamico
+
