@@ -1,0 +1,14 @@
+Problemas de complexidade elevada tende a ser insuficiente quando se trata de programacao procedural em certo nivel.    
+
+1 - Tipos abstratos:
+Por que e importante? Por que surgiu?
+Surge muito antes da programacao: Como definir numeros naturais, ja que e impossivel listar todos? 
+No nosso conceito eu nao to procupado com a eficiente de tempo ou espaco em memoria.
+TAD e como se fosse uma maquina que eu tenho operacoes que defini como a maquina opera.
+Voltando aos naturais, naturais sao inteiros nao negativos, agora imagina uma maquina de fabricar naturais. Na maquina vou ter o primeiro numero = 0, entao a saida e igual a zero, a proxima operacao seria a operacao proximo() que seria o n + 1, e a a
+entao:
+primeiro natural n = 0
+proximo: n + 1;
+anterior: se n > 0 etao n - 1;
+Perceba que n defini o estado do objeto. e as funcoes proximo,anterior opera sobre ele.
+Entao o TAD e como se fosse isso, eu tenho um objeto que possuem dados que representam estado e tenho operacoes que podem operar sobre eles.

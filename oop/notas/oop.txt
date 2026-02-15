@@ -1,0 +1,102 @@
+declaracao
+<tipo> <declaracao>,...,<declaracao>
+-<tipo>:
+    - Tipo das variaveis.
+-<declaracao> 
+    - Sintaxe: <nomeVariavel> = <inicializacao>
+    - nomeVariavel inicia com minuscula
+    - <inicializacao> valor literal ao tipo.
+
+String e uma classe.
+Entao o tipo seria um tipo de referencia.
+Objetos sao criados usando new mas na o tem new na declaracao
+<String> <nomeVariavel> = <declaracao>
+
+<nomeVariavel> e uma variavel de referencia que a ponta para o objeto <declaracao> da classe String.
+Voce pode concatenar
+...println("a" + "b") isso e igual a "ab"
+A classe String possui varios metodos. 
+E importante lembrar que uma String e uma sequencia de caracteres e java conta a partir
+de 0 quando indexado.
+na String "animals" a[0] = a; a[1] = n... a[6] = s;
+Se voce chamar um metodo em uma String ele retornara um objeto String
+
+String nome = "Ana";
+nome.toUpperCase();
+...println(nome);
+
+a saida sera Ana e nao ANA, o metodo retorna uma nova String mas nao muda a variavel.
+
+String nome = "Ana";
+nome = nome.toUpperCase();
+
+agora sim!
+Como se trata de um tipo de referencia entao ele sempre retorna o tipo, ele nao muda a vartiavel igual tipos primitivos.
+alguns metodos
+
+length() - retorna o numero de caracteres da String
+
+var name = "animals";
+name.length() - 7
+A indexacao nao e por zero nesse caso pois nao to pegando posicoes de uma lista.
+
+charAt - consulta a string para descobrir caracter em um indice especifico.
+
+var name = "animals"
+name.charAt(0); isso e igual a 'a'
+
+substring() e igual a charAt mas ele retorna um gripo de caracteres da String.
+o primeiro parametro e o indice inicial, ai o segundo parametro e o indice final mas o segundo e ocional.
+
+O método indexOf() analisa os caracteres da string e encontra o primeiro índice que corresponde ao valor desejado.
+
+comparacao:
+<string1>.equals(<string2>)
+<string1>.equalsIgnoreCase(<string2)
+
+conversoes.
+Short.parseShort(<argumento>)
+...
+String texto = "123";
+Integer numeroObjeto = Integer.valueOf(texto);
+sout.print(numeroObjeto); = Integer(123) 
+
+String texto = "abc";
+int numero = Integer.parseInt(texto); // ERRO NumberFormatException
+/tratamento:
+
+String texto = "123a"; // texto que pode não ser um número
+int numero = 0;        // valor padrão caso a conversão falhe
+
+try {
+    numero = Integer.parseInt(texto);
+    System.out.println("Número convertido: " + numero);
+} catch (NumberFormatException e) {
+    System.out.println("Erro: o texto não é um número válido!");
+}
+
+cast 
+double x = 50;
+float y;
+y = (float)x; conversao de double para float.
+
+float getParcela(){
+    return (float)parcela;
+}
+...
+funcao em c e semelhante a static em java.
+
+vetor:
+
+<tipo>[] <declaracao>,...<declaracao>
+ex: int primo[] = {1,2,3,2};
+    int primo[];
+    primo = new int[]{1,2,3,2};
+
+ex 
+import java.util.*
+
+String ds[] = {"invalido", "domingo", "segunda"};
+Random ran = new Random();
+int diaSemana = rand.nextInt(2) + 1;
+print(ds[diaSemana])
