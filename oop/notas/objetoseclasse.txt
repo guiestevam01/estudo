@@ -1,0 +1,24 @@
+todo objeto e instancia de uma classe.
+Para se instanciar um objeto utiliza-se o metodo construtor.
+Construtor = metodo que constroi um objeto(em memoria?)
+construtor e um metodo que tem o mesmo nome da classe.
+Todo objeto instanciado foi criado atraves da ativacao do metodo construtor.
+
+classA
+constructor()(classA): Gera instancia da classA
+classA(): return object of classA 
+
+instanciacao do objeto se da atraves do comando new
+Circulo circ = new Circulo();
+
+circ e uma variavel que e uma referencia para um objeto da classe Circulo.
+new e uma operacao que instancia um objeto de uma classe.
+o ponteiro para este objeto e atribuido a variavel circ.
+Declaracao de referencia
+Circulo circ;
+
+instanciacao:
+circ = new Circulo();
+
+A variavel circ e um ponteiro, inicialmente
+Circu.o
