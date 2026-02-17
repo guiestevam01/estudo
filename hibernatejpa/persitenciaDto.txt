@@ -1,0 +1,6 @@
+Algo interessante: Objetos de persistencia nao devem ser trafegados no controller.
+Nao usa entidades persistentes no requestMapping
+Dependedo, o getMapping pode ate retornar a entidade, mas no post e put nao pode.
+A mas por que? e bastante simples, se objetos persistentes comunicam com banco de dados,
+quando voce permite um Post ou put naquele endpoint voce permite o usuario trabalhar com aquela entidade sincronizada no banco,
+e pior, ele altera isso.
