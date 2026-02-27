@@ -1,0 +1,10 @@
+Ser engenheiro de software = tradutor.
+Eles traduzem o business logic em uma porcaria de código ruim que se concentra em:
+-frontend(view)
+-business logic (controller)
+-database(model)
+Voce faz esses cruds inutil e por incrivel que pareca, nao importa muito se voce sabe reverter uma arvore binária em c, o  que para eles, para os bussines man 
+importa é se vocë sabe fazer um crud inutil.
+
+Minha previsáo é que esse modelo DEVE e vai ser substituido pela IA. Porque a ia pode fazer isso, pode exercer um papel de tradutor de business logic muito facilmente.
+Por isso odeio ruby e react, porque nao tem nada a ver com progrramacao, e como se vocë tivesse memorizando uma sintaxe estranha de alguma coisa estúpida.
