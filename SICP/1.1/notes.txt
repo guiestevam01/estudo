@@ -1,0 +1,10 @@
+Linguagem de programacao além de ser uma forma de se comunicar com o computador, é tambem um estrutura pela qual organizamos ideias sobre processos computacionais.
+
+- Toda linguagem de programacao atual possui: 
+    - expressoes primitivas
+    - meios de combinacao: Elementos compostos são constituidos de elementos mais simples.
+    - meios de abstracao: Elementos compostos pode ser nomeados e manipulados.
+
+A linguagem possui dois elementos principais: procedimentos e dados.
+Dados é aquilo que vocë deseja manipular e procedimentos é a regra para manipulacoa.
+
