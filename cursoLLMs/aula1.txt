@@ -1,0 +1,10 @@
+O que são LLMS?
+Antes de falar sobre LLM é bom falar sobre LMS. LM é um modelo de linguagem
+LM é um sistema de IA criado para entender, prever e gerar textos humanos, ele aprende padrões de linguagem lendo enormes quantidades.
+Ele tenta de forma probabilistica prever a próxima frase.
+A primeira forma de LM era Lm lógicos
+No caso voce tinha contextos de probabilidade logico, no geral havia regras logicas, entao se estou falando capital, isso signfica que capital pode ser apenas de um pais, entao se o contexto for capital-alemanha  seria berlim, no geral ele nao trablhava bem com massas de dados.
+1980-2000 surge as LMs estatistica, eles aprendem com textos disponibilizados digital e publicamente, ele trabalha principalmente com análise estatística.
+anos 2000 - 2017 surge LMs neurais, permite uma melhor expressão de dados, são baseados em redes neurais
+PLMs surge na arquiteutrea de transformers, são modelos com dezenas de bilhoes de parametros
+2019-hoje LLMS são modelos de lingaugem com arquietura de transformers, e sÃO MODELOS COM MAIROES PARAMETROSD.
