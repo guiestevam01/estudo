@@ -1,0 +1,8 @@
+Categorizacao dos LLMs:
+Modelos open-source e closed-source
+Modelos de propósito geral ou especializados.
+
+Modelos open-source: o código fonte é disponibilizado ao publico
+
+Propositos geral: executa diversas tarefas sem ajustes ou treinamnetos especificos. Voce tem um pré treinamento
+Especializada: Criados para resolver problemas de um dominio especifico 
