@@ -1,0 +1,2 @@
+Intro GPT:
+o que é? Generative Pre-trained transformer (transformadores generativo pré-treinado) é uma familia de LLM da openai que é treinado em vasto conjunto de texto, surge em 2018 o gpt-1, em 2022 teve um grande avanco, e deu inicio de certa forma a "era da ia."

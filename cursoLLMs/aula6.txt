@@ -1,0 +1,11 @@
+prompt enginner.
+prompt: e as requisicoes para modelos.
+Conceitos básicos:
+persona: um perfil fictcio, dizer para o modelo como ele deve se comportar e agir, use "role": "System" em messages
+
+descricao da tarefa: descrever o que o modelo deve fazer, deve ser claro.
+Comece com: sua tarefa é fazer x, para executar x com sucesso, siga y passos:.
+o ideal é nao fornecer muitas tarefas em um mesmo prompt e sim Intercala, mude a persona caso precise para cada intercalacao.
+
+FEW-SHOT LEARNING: A LLM aprende a realizar uma tarefa a partir de um numero muito limitado de exemplos de treinamento
+
