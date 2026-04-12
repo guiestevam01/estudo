@@ -23,3 +23,11 @@ delet - deletar dados
 put - Se o recurso tem {nome: "João", idade: 30}
 PUT precisa enviar o objeto completo {nome: "João", idade: 31} 
 patch - altera parte do objeto
+
+Nas solicitacoes temos get que no caso nao teria o corpo da entidade, mas em post como estamos criando dados voce pode enviar um corpo de entidade via json
+
+1xx informacional
+2xx sucesso: 200  OK, 201 CREATED
+3xx Redirecionamento
+4xx erro do cliente
+5xx Erro no servidor
