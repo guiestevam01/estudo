@@ -1,0 +1,11 @@
+# Java compiled files
+*.class
+
+# IntelliJ / Eclipse / VSCode (opcional)
+.idea/
+*.iml
+.vscode/
+
+# Maven / Gradle (opcional)
+target/
+build/
