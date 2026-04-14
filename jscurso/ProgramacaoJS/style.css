@@ -1,0 +1,297 @@
+/* Paleta de Cores e Fontes */
+:root {
+    --primary-blue: #007bff;
+    --success-green: #28a745;
+    --warning-yellow: #ffc107;
+    --danger-red: #dc3545;
+    --bg-light: #f8f9fa;
+    --card-bg: #fff;
+    --border-color: #e9ecef;
+    --text-color: #343a40;
+    --font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+/* Estilos Globais */
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-light);
+    color: var(--text-color);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Estilo do cabeçalho */
+.header-main {
+    background-color: #1a237e; /* Azul escuro */
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.header-main h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #ffffff; /* Cor do texto em branco */
+}
+
+/* Estilo do conteúdo principal */
+.main-content {
+    padding: 2rem 1.5rem;
+    max-width: 1200px;
+    margin: 0.5rem auto; /* Margem ajustada para aproximar do cabeçalho */
+    text-align: center;
+}
+
+.main-content h2 {
+    margin-bottom: 3rem;
+    color: var(--text-color);
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Estilo para a lista de módulos (cartões) */
+.module-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    justify-content: center;
+}
+
+.module-item {
+    background-color: var(--card-bg);
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.module-item h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+/* Estilo para os módulos HABILITADOS */
+.module-item.modulo-habilitado {
+    color: var(--text-color);
+}
+
+.module-item.modulo-habilitado:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.module-item.modulo-habilitado h3::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    margin: 1rem auto 0;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.module-item:nth-child(3n+1).modulo-habilitado h3::after {
+    background-color: var(--success-green);
+}
+
+.module-item:nth-child(3n+2).modulo-habilitado h3::after {
+    background-color: var(--warning-yellow);
+}
+
+.module-item:nth-child(3n).modulo-habilitado h3::after {
+    background-color: var(--danger-red);
+}
+
+/* Estilo para os módulos DESABILITADOS */
+.module-item.modulo-desabilitado {
+    background-color: #e9ecef;
+    color: #a0a0a0;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.module-item.modulo-desabilitado:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.module-item.modulo-desabilitado h3 {
+    color: #777;
+}
+
+.module-item.modulo-desabilitado h3::after {
+    background-color: #b0b0b0;
+    transition: none;
+}
+
+/* Estilo da página de formulário e componentes */
+.form-container {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 2rem auto;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+}
+
+.form-container h2 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+/* Layout de Colunas com Flexbox */
+.form-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.form-column-item {
+    flex: 1 1 45%;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.checkbox-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.checkbox-radio-group label {
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Estilo dos botões */
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn.success {
+    background-color: var(--success-green);
+}
+
+.btn.success:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn.warning {
+    background-color: var(--warning-yellow);
+    color: var(--text-color);
+}
+
+.btn.warning:hover {
+    background-color: #e0a800;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn.danger {
+    background-color: var(--danger-red);
+}
+
+.btn.danger:hover {
+    background-color: #c82333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .header-main {
+        padding: 1.5rem 1rem;
+    }
+
+    .header-main h1 {
+        font-size: 2rem;
+    }
+
+    .main-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .main-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .module-list {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .module-item {
+        padding: 2rem 1.5rem;
+    }
+
+    .form-columns {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-column-item {
+        flex: 1 1 100%;
+    }
+}
