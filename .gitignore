@@ -1,11 +1,16 @@
 # Java compiled files
 *.class
 
-# IntelliJ / Eclipse / VSCode (opcional)
+# IntelliJ / Eclipse / 
 .idea/
 *.iml
 .vscode/
 
-# Maven / Gradle (opcional)
+# Maven / Gradle 
 target/
 build/node_modules/
+
+node_modules/
+*.so
+*.dll
+*.bin
