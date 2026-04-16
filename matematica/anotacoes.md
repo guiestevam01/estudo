@@ -12,10 +12,7 @@ onde:
 
 - $A_T: \mathcal{I} \to \mathcal{O}$ é o **Task Agent**, que mapeia entradas $i \in \mathcal{I}$ para saídas $o \in \mathcal{O}$.
 
-- $A_M: \mathcal{H} \times \mathcal{E} \times \mathbb{N} \to \Delta(\mathcal{D})$ é o **Meta Agent**, que, dado:
-  - um histórico de execução $\mathcal{H}$,
-  - um conjunto de avaliações $\mathcal{E}$,
-  - e um budget restante $b \in \mathbb{N}$,
+- $A_M: \mathcal{H} \times \mathcal{E} \times \mathbb{N} \to \Delta(\mathcal{D})$ é o **Meta Agent**, que, dado: um histórico de execução $\mathcal{H}$, um conjunto de avaliações $\mathcal{E}$, e um budget restante $b \in \mathbb{N}$,
 
   produz uma distribuição sobre modificações de código $\mathcal{D}$ (por exemplo, diffs ou transformações estruturais).
 
