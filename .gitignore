@@ -8,4 +8,4 @@
 
 # Maven / Gradle (opcional)
 target/
-build/
+build/node_modules/
