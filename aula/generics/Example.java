@@ -1,15 +1,22 @@
-public class Example{
-    public static void main(String[] args){
-        Foo f1 = new Foo();
-        f1.x = 5;
-        int y = (int)f1.x;
-        Foo f2 = new Foo();
-        f2.x = "Hello";
-        int z = (int)f2.x;
-        System.out.println(f1.x);
-        System.out.println(y);
-        System.out.println(f2.x);
-        System.out.println(z);
+class Sets<T>{
+    T t;
+    public void print(){
+        System.out.println(t);
+    }
+}
 
+class parString<T>{
+    T t;
+
+    public String imprimirString(){
+        System.out.println(t);
+    }
+}
+
+public class Example {
+    public static void main(String[] args) {
+        Sets<Integer> printInt = new Sets<>();
+        printInt.t = 32;
+        printInt.print();
     }
 }

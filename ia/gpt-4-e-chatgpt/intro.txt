@@ -1,0 +1,43 @@
+O que são modelos de linguagem? o que é PNL? O que são arquiteutra de transformadores?
+A llm gpt é um dos modelos mais recentes no campo da PNL que é um subcampo da machine learning (ml) de ia. É importante entender PNL.
+ML é um sub conjunto de ia. em ML a ideia é desenvolver algoritmos que permite que o sistema aprenda por si proprio.
+Na decada de 50 surgiu algoritmos bons para deep learning
+Esses algoritmos são designados por redes neurais artificiais.
+Os modelos gpt se baseiam na arquitetura transformer.
+Transformadores são como maquinas de leitura.
+
+Antes de transformes os modelos usavam RNNs  e CNN que eram modelos sequenciais. O transformer faz algo radical: Remove recorrencia e dusa atencao.
+Entao enquanto RNN precisa ler palavra por palavra transformer le tudo em paralelo ao mesmo tempo
+
+Attention(Q,K,V) = softmax(QKt/raiz de dk)V
+Q = query (o que eu estou procurando)
+K = key ( o que eu ofereco)
+V = value(qual informacao eu carrego?).
+
+a palavra gato tem tres versoes dela mesma:
+"gato"
+Q(gato)
+K(gato)
+V(gato)
+Q = X * wq
+K = X * wk
+V = X * Wv
+entao Q * Kt = comparar cada palavra com todas as outras
+o quanto essa palavra deveria prestar atencao na outra?
+"O gato que estava no telhado caiu"
+foco: "caiu"
+palavra   similaridade 
+gato        alta 
+telado      media
+que         baixa 
+no          baixa 
+softmax transforma em probabilidade:
+isso transforma os numeros em pesos:
+gato - 0.5
+telhado - 0.3
+etc..
+
+depois dividi pela raiz de dk para estabilizar valores etc...
+No caso vale lembrar que transformer é um algoritmo de deep learning.
+
+Processamento de Linguagem Natural (NPL): Capacidade de computadores processarem, interpretarem e gerar linguagem humana natural. Entao existe uma enorme quantidade de textos para treinar e aprender padroes.
