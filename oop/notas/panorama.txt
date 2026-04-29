@@ -1,4 +1,0 @@
--Levantamento de requisitos
--Projeto fortemente estruturado sobre modelos.
-    -modelo: descreve dados, relacoes,semantica e restricoes.
-
