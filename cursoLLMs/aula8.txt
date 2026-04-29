@@ -1,8 +1,0 @@
-problemas de negocio.
-compreensao do problema: preecisa analisar diaramente escritura de imoveis, isso demanda tempo.
-ela  precisa extrair um conjunto Y de informacoes nessas escrituras.
-Solucao:
-1 - define o texto ( a escritura)
-2 - define a persona: Voce é um analista do setor imobiliario com vasta experiência no setor"
-3 - prompt: voce recebera uma certidao de um imovel, sua tarefa consiste em extrair as informacoes listadas abaixo:"
-4 - gerao modelo.

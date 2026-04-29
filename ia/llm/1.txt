@@ -1,5 +1,0 @@
-Modelos atuais estao em grande escala por conta principalmente de autosupervisão
-1. Modelo de idioma: Codifica informacoes estatistica sobre um ou mais idioa. Imagina "Minha cor favorita é _" se um modelo de linugagem codifica em inglês ele entende que é mais provavel na resposta um conjunto de cores ao inves de ¨car"por exemplo, e se ele detectar que uma cor especifica ocorre com mais frequencia entao essa será sua resposta.
-
-A unidade basica de um modelo de lingaugem(LM) é o token, um token pode ser um caracter, uma palavra ou parte de um palavra dependendo do modelo. Esse processo de dividor um texto em tokens é chamado de tokenizacão.
- O conjunto de todos os tokens que um modelo pode trabalhar é chamado de vocabulario do modelo.  No geral voce pode usar pequenos numeros de tokens para construir numeros dee palavras distintass. GPT-4 tem 100.256 tokens em seu vocabulario.
