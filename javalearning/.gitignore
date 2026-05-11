@@ -1,0 +1,35 @@
+# --- JAVA & BUILD ---
+*.class
+target/
+build/
+.mvn/wrapper/maven-wrapper.jar
+
+# --- DOCUMENTAÇÃO (Opcional) ---
+# Se você quiser que o HELP.md gerado pelo Spring suma do Git, deixe assim:
+# HELP.md 
+
+# --- IDEs ---
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+.springBeans
+.sts4-cache
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# --- SISTEMA E LOGS ---
+*.log
+.DS_Store
+desktop.ini
+Thumbs.db
+.temp/
+.tmp/
