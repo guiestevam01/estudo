@@ -1,0 +1,24 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Mouse",
+      "price": 10.99
+    },
+    {
+      "id": "2",
+      "name": "Keyboard",
+      "price": 19.99
+    },
+    {
+      "id": "3",
+      "name": "Monitor",
+      "price": 5.99
+    },
+    {
+      "id": "1779028517694",
+      "name": "das",
+      "price": "32"
+    }
+  ]
+}
