@@ -1,1 +1,44 @@
+# Java
 *.class
+target/
+build/
+out/
+*.jar
+*.war
+
+# IDEs e editores
+.idea/
+.vscode/
+.settings/
+*.iml
+*.iws
+*.ipr
+.vim/
+*.swp
+
+# Node / front-end
+node_modules/
+dist/
+.next/
+
+# Projetos fora da vitrine Java
+hackaton/
+hackaton (Copy)/
+
+# Python / notebooks
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Ambiente e dados locais
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite
+*.sqlite3
+
+# Arquivos grandes de estudo/local
+*.pdf
