@@ -1,0 +1,5 @@
+- Requisitos e Produto (trd,prd,frd,user stories..)
+- Design e Arquitetura(
+- Decisoes tecnicas
+- Engineering Guidelines
+- Ops e Infra
