@@ -1,4 +1,4 @@
 package Application;
 
-public class Precificacao {
+public class Precificacao implements {
 }

@@ -1,2 +1,0 @@
-task_id,condicao,repeticao,judge_model,accuracy,expertise_depth,relevance,clarity,pedagogical_value,conciseness,justification
-recursao,role_professor,1,glm-4.7-flash,5,4,5,5,5,5,"A explicação é tecnicamente correta, utiliza uma analogia clara (bonecas russas), identifica corretamente os componentes essenciais (caso base e passo recursivo) e fornece um exemplo simples de código (fatorial)."

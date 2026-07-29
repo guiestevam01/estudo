@@ -1,0 +1,9 @@
+@startuml
+class Alunos {
+~ {static} String nome
++ int idade
++ {static} void main(String[])
+}
+
+
+@enduml

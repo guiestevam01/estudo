@@ -15,6 +15,8 @@ out/
 *.ipr
 .vim/
 *.swp
+*.swo
+*~
 
 # Node / front-end
 node_modules/
@@ -39,6 +41,16 @@ venv/
 *.db
 *.sqlite
 *.sqlite3
+.bashrc
+.DS_Store
+Thumbs.db
 
 # Arquivos grandes de estudo/local
 *.pdf
+
+# Binários locais de exercícios em C
+/estrutura-de-dados/serie
+/estrutura-de-dados/revisao-c/pt02
+/estrutura-de-dados/revisao-c/strcpy_implementation
+/estrutura-de-dados/revisao-c/texto
+/estrutura-de-dados/revisao-c/verifica_endianess
