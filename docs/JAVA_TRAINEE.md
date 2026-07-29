@@ -13,19 +13,18 @@ Este guia destaca os estudos Java mais relevantes deste repositório para uma av
 
 | Tópico | Caminho | Competências demonstradas |
 | --- | --- | --- |
-| API REST com Spring Boot | [`../aprendendo-spring/1/helloworld`](../aprendendo-spring/1/helloworld) | Controllers, JSON e status HTTP |
+| API REST com Spring Boot | [`../projetos/hello-world-api`](../projetos/hello-world-api) | Java 21, endpoints REST, validação, Maven e testes |
 | Estruturas de dados | [`../estrutura-de-dados/estrutura-de-dados-java`](../estrutura-de-dados/estrutura-de-dados-java) | Arrays, busca linear, ordenação, listas |
-| POO e exercícios | [`../Java COMPLETO Programação Orientada a Objetos_nelio`](../Java%20COMPLETO%20Programação%20Orientada%20a%20Objetos_nelio) | Classes, objetos, encapsulamento, construtores |
-| Estudos de Java | [`../javalearning`](../javalearning) | ArrayList, lambdas, gerenciamento de memória |
-| Threads | [`../threads`](../threads) | Modelagem inicial de concorrência e classes relacionadas |
-| CSV | [`../modulo1/AprendendoCSV`](../modulo1/AprendendoCSV) | `Files.readString`, validação de extensão e parsing simples |
+| POO e exercícios | [`../cursos/java-completo`](../cursos/java-completo) | Classes, objetos, encapsulamento, construtores |
+| Estudos de Java | [`../java`](../java) | ArrayList, lambdas, gerenciamento de memória |
+| Threads | [`../java/concorrencia`](../java/concorrencia) | Modelagem inicial de concorrência e classes relacionadas |
+| CSV | [`../java/entrada-saida/leitura-csv`](../java/entrada-saida/leitura-csv) | `Files.readString`, validação de extensão e parsing simples |
 
-## Projeto backend em evolução
+## Projeto backend em destaque
 
-O estudo mais próximo de um backend está em
-`aprendendo-spring/1/helloworld`. No estado atual, ele contém o código-fonte
-dos controllers e do modelo, mas ainda precisa de `pom.xml`, classe principal
-e testes versionados antes de poder ser executado como aplicação.
+O projeto [`Hello World API`](../projetos/hello-world-api) possui build Maven
+reproduzível, validação de entrada e testes de integração executados também
+pelo GitHub Actions.
 
 Endpoints:
 

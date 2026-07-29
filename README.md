@@ -1,75 +1,79 @@
-# Estudos em Programação - foco Java
+# Portfólio de estudos — Backend Java
 
-Repositório de estudos práticos com foco principal em Java, Spring Boot, programação orientada a objetos, estruturas de dados e fundamentos de backend.
+[![Java CI](https://github.com/guiestevam01/estudo/actions/workflows/java-ci.yml/badge.svg)](https://github.com/guiestevam01/estudo/actions/workflows/java-ci.yml)
+![Java](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4-6DB33F?logo=springboot&logoColor=white)
 
-Meu objetivo com este repositório é mostrar evolução contínua, organização de aprendizado e base técnica para oportunidades como **Java Trainee / Desenvolvedor Backend Junior**.
+Repositório de evolução técnica com foco em **Java, backend, orientação a
+objetos e estruturas de dados**. A proposta é registrar a prática contínua,
+mas também destacar projetos pequenos, executáveis e testados.
 
-## Destaques para recrutadores
+## Projeto em destaque
 
-- **Java e Spring Boot:** API REST simples com Maven, endpoints HTTP e modelo de domínio.
-- **POO:** exercícios com classes, atributos, métodos, encapsulamento e composição.
-- **Estruturas de dados:** arrays, busca, ordenação, substituição e manipulação de listas.
-- **Concorrência:** estudos iniciais com threads em Java.
-- **Entrada e saída:** leitura de CSV usando `java.nio.file`.
-- **Aprendizado complementar:** JavaScript, TypeScript, Node.js, Python e estudos de IA/RAG.
+### [Hello World API](projetos/hello-world-api)
 
-## Onde olhar primeiro
+API REST com Java 21 e Spring Boot que demonstra:
 
-| Área | Caminho | O que demonstra |
-| --- | --- | --- |
-| Spring Boot | [`aprendendo-spring/1/helloworld`](aprendendo-spring/1/helloworld) | Controllers e modelo de uma API REST em evolução |
-| Java trainee | [`docs/JAVA_TRAINEE.md`](docs/JAVA_TRAINEE.md) | Mapa dos estudos Java e próximos passos |
-| Estruturas de dados | [`estrutura-de-dados/estrutura-de-dados-java`](estrutura-de-dados/estrutura-de-dados-java) | Algoritmos básicos, arrays, busca e listas |
-| POO em Java | [`Java COMPLETO Programação Orientada a Objetos_nelio`](Java%20COMPLETO%20Programação%20Orientada%20a%20Objetos_nelio) | Exercícios de classes, objetos e fundamentos |
-| Threads | [`threads`](threads) | Modelagem e primeiros estudos de concorrência |
-| CSV com Java | [`modulo1/AprendendoCSV`](modulo1/AprendendoCSV) | Manipulação de arquivos e strings |
+- endpoints `GET` e `POST` com respostas HTTP adequadas;
+- desserialização de JSON e validação com Jakarta Bean Validation;
+- modelo imutável usando `record`;
+- testes de integração com JUnit 5 e MockMvc;
+- build reproduzível com Maven Wrapper;
+- integração contínua no GitHub Actions.
 
-## Projeto Spring Boot
+Para executar:
 
-O diretório `aprendendo-spring/1/helloworld` contém os primeiros controllers e
-o modelo da API. Ele ainda não possui `pom.xml` ou wrapper Maven versionado e,
-portanto, permanece como estudo em evolução, não como aplicação executável.
-
-Endpoints principais:
-
-- `GET /hello`
-- `GET /products`
-- `POST /products`
-
-Exemplo de `POST /products`:
-
-```json
-{
-  "id": 2,
-  "name": "Mouse Logitech",
-  "price": 120.0
-}
+```bash
+cd projetos/hello-world-api
+./mvnw test
+./mvnw spring-boot:run
 ```
 
-## Organização geral
+Rotas disponíveis:
 
-Este repositório também funciona como diário técnico. Algumas pastas são estudos de cursos e experimentos, enquanto a trilha Java recebe prioridade na organização e documentação.
+| Método | Rota | Resultado |
+| --- | --- | --- |
+| `GET` | `/hello` | Mensagem para verificação da API |
+| `GET` | `/products` | Produto de exemplo em JSON |
+| `POST` | `/products` | Valida e retorna o produto com `201 Created` |
+
+## Competências demonstradas
+
+| Área | Evidência no repositório |
+| --- | --- |
+| Java e Spring Boot | [API REST executável e testada](projetos/hello-world-api) |
+| Orientação a objetos | [Exercícios de domínio, composição e encapsulamento](java/objetos) |
+| Design de software | [Factories e anotações sobre construção de objetos](java/padroes-de-projeto) |
+| Estruturas de dados | [Arrays, listas, busca e exercícios em Java/C](estrutura-de-dados) |
+| Concorrência | [Exercícios iniciais com threads](java/concorrencia) |
+| Inteligência artificial | [Agentes, prompting e experimentos de RAG](inteligencia-artificial) |
+
+## Organização
 
 ```text
 .
-├── aprendendo-spring/        # Estudos com Spring Boot
-├── estrutura-de-dados/       # Algoritmos e estruturas em Java e C
-├── javalearning/             # Tópicos isolados de Java
-├── padroesDeProjeto/          # Design, factories e princípios de projeto
-├── threads/                  # Estudos de concorrência
-├── modulo1/AprendendoCSV/    # Leitura de CSV com Java
-├── nodejs/, js/, typescript/ # Estudos complementares web
-├── python/, webscraping/     # Estudos complementares Python
-├── AI-GERAL/                 # IA, agentes, prompts e experimentos
-└── docs/                     # Guias para leitura do repositório
+├── projetos/                    # Projetos executáveis em destaque
+│   └── hello-world-api/
+├── java/                        # POO, concorrência e design
+├── estrutura-de-dados/          # Algoritmos e exercícios em Java e C
+├── cursos/                      # Exercícios guiados organizados por curso
+├── inteligencia-artificial/     # IA, agentes, prompts e RAG
+├── js/, nodejs/, typescript/    # Estudos complementares de web
+├── python/, webscraping/        # Estudos complementares de Python
+└── docs/                        # Mapa de estudos e convenções
 ```
 
-As regras para novos conteúdos, artefatos locais e branches estão no
-[`docs/ORGANIZACAO.md`](docs/ORGANIZACAO.md).
+Os exercícios exploratórios permanecem visíveis para mostrar evolução. O
+diretório `projetos/` reúne apenas trabalhos com instruções de execução e
+validação automatizada.
 
-## Roadmap Java
+## Próximos passos
 
-- Melhorar nomes de pacotes e padronizar projetos Java com Maven.
-- Criar testes unitários para exemplos de algoritmos e POO.
-- Evoluir a API Spring Boot com DTOs, validação, tratamento de erros e persistência.
-- Separar estudos finalizados de rascunhos para deixar a vitrine ainda mais limpa.
+- Evoluir a API com service, repository, DTOs e tratamento global de erros.
+- Adicionar persistência com Spring Data JPA e PostgreSQL.
+- Ampliar a cobertura de testes unitários e de integração.
+- Publicar um segundo projeto backend com autenticação e documentação OpenAPI.
+
+Mais detalhes: [trilha Java](docs/JAVA_TRAINEE.md) ·
+[convenções do repositório](docs/ORGANIZACAO.md) ·
+[perfil no GitHub](https://github.com/guiestevam01)

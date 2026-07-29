@@ -6,7 +6,6 @@ public class Test{
         int num = scanner.nextInt();
         System.out.println(num);
         while(num > 0){
-            cont ++
             num = num / 10;
             System.out.println(num);
         }

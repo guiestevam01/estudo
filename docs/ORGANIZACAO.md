@@ -8,12 +8,13 @@ dependências ou artefatos gerados.
 
 | Área | Diretórios principais |
 | --- | --- |
-| Java e backend | `aprendendo-spring/`, `javalearning/`, `threads/`, `padroesDeProjeto/` |
+| Projetos demonstráveis | `projetos/` |
+| Java e backend | `java/` |
 | Algoritmos | `estrutura-de-dados/` |
 | JavaScript e web | `js/`, `nodejs/`, `typescript/`, `exercicios-js/` |
 | Python | `python/`, `webscraping/` |
-| Inteligência artificial | `AI-GERAL/` |
-| Cursos e exercícios guiados | `modulo1/`, `programming-with-javascript-meta/` e diretórios com o nome do curso |
+| Inteligência artificial | `inteligencia-artificial/` |
+| Cursos e exercícios guiados | `cursos/` |
 
 ## O que entra no Git
 
