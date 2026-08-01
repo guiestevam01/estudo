@@ -47,6 +47,7 @@ Rotas disponíveis:
 | Estruturas de dados | [Arrays, listas, busca e exercícios em Java/C](estrutura-de-dados) |
 | Concorrência | [Exercícios iniciais com threads](java/concorrencia) |
 | Inteligência artificial | [Agentes, prompting e experimentos de RAG](inteligencia-artificial) |
+| Acesso a dados (JDBC) | [Estudo iniciado em ago/2026 — conexão, queries e boas práticas](java/jdbc-study) |
 
 ## Organização
 
