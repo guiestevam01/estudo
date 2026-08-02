@@ -1,403 +1,323 @@
-# anotacoes
+# Input embedding: de texto a vetores
 
-O caminho estudado neste exemplo é:
+Este estudo acompanha a frase **“o gato dorme”** até a entrada do primeiro
+bloco Transformer, usando o tokenizador do `Qwen/Qwen3-0.6B-Base` e uma tabela
+de embeddings criada do zero com PyTorch.
+
+O caminho implementado em `input_embedding_o_gato_dorme.py` é:
 
 $$
-\text{dataset}
+\text{texto}
 \longrightarrow
-\text{tokenizer}
+\text{subtokens}
 \longrightarrow
 \text{IDs}
 \longrightarrow
-\text{token embeddings}
+\text{lookup em } W_{\text{embedding}}
 \longrightarrow
-\text{informação de posição}
-\longrightarrow
-\text{entrada do Transformer}
+\texttt{inputs\_embeds}
 $$
 
-> **Importante:** a distribuição Normal usada abaixo é uma escolha didática de inicialização. Ela não é uma regra obrigatória para todos os Transformers. Bibliotecas e arquiteturas diferentes podem inicializar os embeddings de outras maneiras.
+O código representa o **início de um treinamento**. Ele baixa o tokenizador e
+a configuração do modelo, mas não baixa os pesos treinados do Qwen3. Por isso,
+os vetores começam aleatórios e ainda não carregam significado aprendido.
 
-## 1. Tokenização e vocabulário
+## 1. Tokenização: texto não entra diretamente no modelo
 
-O **tokenizer** recebe um texto e o divide em unidades chamadas **tokens**. Em seguida, converte cada token em um número inteiro chamado **ID**.
+O tokenizador divide o texto em unidades de seu vocabulário. Uma unidade pode
+ser uma palavra inteira, parte de uma palavra, pontuação ou outro símbolo.
 
-Exemplo:
+Na execução validada deste repositório, a frase foi dividida assim:
 
-$$
-\text{gato} \longrightarrow \text{ID } 45
-$$
+| Posição | Subtoken | ID |
+| ---: | --- | ---: |
+| 0 | `o` | 78 |
+| 1 | `Ġg` | 342 |
+| 2 | `ato` | 4330 |
+| 3 | `Ġdorm` | 29109 |
+| 4 | `e` | 68 |
 
-O número 45 não contém, por si só, o significado de “gato”. Ele funciona apenas como um índice usado para localizar uma linha na tabela de embeddings.
+O caractere `Ġ` é uma representação visual usada pelo tokenizador para indicar
+que o subtoken começa depois de um espaço. Ele ajuda a distinguir, por exemplo,
+um trecho no início de uma palavra de um trecho em outro contexto.
 
-Há uma distinção importante:
+Os IDs formam o tensor:
 
-- durante o **treinamento do tokenizer**, um corpus de textos é usado para construir o vocabulário;
-- depois que o tokenizer está pronto, ele usa esse vocabulário para transformar novos textos em IDs.
+```text
+input_ids = [[78, 342, 4330, 29109, 68]]
+```
 
-## 2. Dimensão dos embeddings
+Um ID não contém significado por si só. Ele é apenas o índice de uma linha na
+tabela de embeddings.
 
-Cada token é representado por um vetor com $d_{\text{model}}$ componentes.
+## 2. A matriz de embeddings
 
-Neste exemplo:
-
-$$
-d_{\text{model}} = d = 4
-$$
-
-Portanto, o embedding de “gato” possui quatro componentes:
-
-$$
-\mathbf{e}_{\text{gato}} =
-\begin{bmatrix}
-e_1 & e_2 & e_3 & e_4
-\end{bmatrix}
-$$
-
-No início do treinamento, esses componentes são apenas números aleatórios. Eles ainda não representam características compreensíveis como “animal”, “mamífero” ou “doméstico”.
-
-## 3. Inicialização com uma distribuição Normal
-
-Neste exemplo didático, os valores iniciais dos embeddings são sorteados de uma distribuição Normal com média
+Se o vocabulário possui $|V|$ entradas e cada vetor possui $d_{\text{model}}$
+componentes, a tabela tem o formato:
 
 $$
-\mu = 0
+W_{\text{embedding}} \in
+\mathbb{R}^{|V| \times d_{\text{model}}}
 $$
 
-e desvio-padrão
+No Qwen3-0.6B-Base, a configuração informa:
+
+- $|V| = 151\,936$ tokens;
+- $d_{\text{model}} = 1024$ componentes;
+- `initializer_range = 0.02`.
+
+O script usa 128 componentes por padrão para reduzir o consumo de memória. A
+opção `--dimensao-original` usa os 1024 componentes da arquitetura original.
+
+Em `float32`, cada componente ocupa 4 bytes. Portanto, apenas a tabela original
+ocupa aproximadamente:
 
 $$
-\sigma = \frac{1}{\sqrt{d}}
+151\,936 \times 1024 \times 4
+\approx 593{,}5\ \text{MiB}
 $$
 
-Como $d=4$:
+O modo didático com 128 componentes ocupa aproximadamente $74{,}2$ MiB.
+
+## 3. Como os valores iniciais são criados
+
+O código preenche **todas as células** da tabela com valores sorteados de uma
+distribuição Normal:
+
+```python
+nn.init.normal_(
+    self.embed_tokens.weight,
+    mean=0.0,
+    std=0.02,
+)
+```
+
+Para cada célula $w_{ij}$:
 
 $$
-\sigma = \frac{1}{\sqrt{4}} = \frac{1}{2} = 0{,}5
+z_{ij} \sim \mathcal{N}(0,1)
 $$
 
-Assim, cada componente do vetor é sorteado de:
-
 $$
-e_j \sim \mathcal{N}\left(0,(0{,}5)^2\right)
+w_{ij} = 0 + 0{,}02z_{ij}
 $$
 
-Nessa notação, o primeiro valor é a média e o segundo é a variância:
+De forma equivalente:
 
 $$
-\mathcal{N}(\mu,\sigma^2)
+w_{ij} \sim \mathcal{N}(0, 0{,}02^2)
 $$
 
-### Função densidade da distribuição Normal
+Na notação $\mathcal{N}(\mu,\sigma^2)$, o segundo argumento é a variância. O
+valor passado como `std` no PyTorch é o desvio-padrão $\sigma$, não a variância.
+
+A distribuição Normal não decide qual vetor pertence a um token. Ela apenas
+inicializa os números da tabela. Depois disso, o ID seleciona uma linha.
+
+## 4. A operação central: lookup
+
+A camada é criada com:
+
+```python
+self.embed_tokens = nn.Embedding(
+    num_embeddings=vocab_size,
+    embedding_dim=d_model,
+)
+```
+
+E a transformação de IDs em vetores acontece nesta linha:
+
+```python
+inputs_embeds = self.embed_tokens(input_ids)
+```
+
+Matematicamente:
 
 $$
-f(x) = \frac{1}{\sigma\sqrt{2\pi}}
-\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
-$$
-
-Substituindo $\mu=0$ e $\sigma=0{,}5$:
-
-$$
-f(x) = \frac{1}{0{,}5\sqrt{2\pi}}
-\exp\left(-\frac{x^2}{2(0{,}5)^2}\right)
-$$
-
-Essa função não escolhe diretamente os números do embedding. Ela descreve a distribuição de probabilidades usada no sorteio: valores próximos de zero são mais prováveis, enquanto valores muito negativos ou muito positivos são menos prováveis.
-
-### Forma prática de realizar o sorteio
-
-Primeiro, sorteamos um valor de uma Normal padrão:
-
-$$
-z_j \sim \mathcal{N}(0,1)
-$$
-
-Depois, ajustamos sua média e sua escala:
-
-$$
-e_j = \mu + \sigma z_j
-$$
-
-Por exemplo, se
-
-$$
-z_1 = -0{,}6,
-$$
-
-então
-
-$$
-e_1 = 0 + 0{,}5(-0{,}6) = -0{,}3.
-$$
-
-Repetimos o processo de maneira independente para as quatro dimensões. Um resultado possível seria:
-
-$$
-\mathbf{e}_{\text{gato}} = E[45] =
-\begin{bmatrix}
--0{,}3 & 0{,}1 & 0{,}7 & 0{,}5
-\end{bmatrix}
-$$
-
-Esses valores são apenas um exemplo de sorteio. Uma nova inicialização provavelmente produziria números diferentes.
-
-## 4. Tabela de embeddings
-
-Os vetores de todos os tokens ficam armazenados em uma matriz de embeddings:
-
-$$
-E \in \mathbb{R}^{|V| \times d_{\text{model}}}
-$$
-
-Nessa expressão:
-
-- $|V|$ é a quantidade de tokens do vocabulário;
-- $d_{\text{model}}$ é a quantidade de componentes de cada embedding;
-- cada linha $E[k]$ contém o embedding do token cujo ID é $k$.
-
-Para o exemplo:
-
-$$
-E[45] = \mathbf{e}_{\text{gato}}
-$$
-
-Se uma frase possui $n$ tokens, com IDs $t_0,t_1,\ldots,t_{n-1}$, a consulta à tabela produz:
-
-$$
-X_{\text{token}} =
-\begin{bmatrix}
-E[t_0] \\
-E[t_1] \\
-\vdots \\
-E[t_{n-1}]
-\end{bmatrix}
-\in \mathbb{R}^{n \times d_{\text{model}}}
-$$
-
-Cada linha dessa matriz representa um token da frase.
-
-### O que acontece durante o treinamento?
-
-Os embeddings são parâmetros treináveis. Conforme o modelo tenta prever respostas corretas, o algoritmo de treinamento calcula os erros e modifica gradualmente os valores da matriz $E$.
-
-Por isso, o vetor de “gato” começa aleatório, mas passa a adquirir uma representação útil a partir dos contextos nos quais o token aparece.
-
-## 5. Por que adicionar informação de posição?
-
-O vetor $E[45]$ informa **qual token** está sendo processado, mas não informa **em qual posição da frase** ele apareceu.
-
-Isso é importante porque a ordem pode alterar o sentido. Por exemplo, “o gato perseguiu o rato” não significa a mesma coisa que “o rato perseguiu o gato”.
-
-Por isso, cada posição $i$ recebe um vetor:
-
-$$
-P[i] \in \mathbb{R}^{d_{\text{model}}}
-$$
-
-Neste exemplo didático, considere:
-
-$$
-P[0] =
-\begin{bmatrix}
-0{,}1 & 0{,}2 & -0{,}7 & 0{,}1
-\end{bmatrix}
-$$
-
-e
-
-$$
-P[1] =
-\begin{bmatrix}
-0{,}2 & 0{,}7 & -0{,}2 & 0{,}2
-\end{bmatrix}.
-$$
-
-Esses valores são apenas ilustrativos. A informação de posição pode ser fixa, como no positional encoding senoidal do Transformer original, ou aprendida durante o treinamento, dependendo da arquitetura.
-
-## 6. Soma do token embedding com a posição
-
-Para o token $t_i$ situado na posição $i$, calculamos:
-
-$$
-X_i = E[t_i] + P[i]
-$$
-
-Essa é uma soma componente a componente:
-
-$$
-\begin{bmatrix}
-a_1 & a_2 & a_3 & a_4
-\end{bmatrix}
-+
-\begin{bmatrix}
-b_1 & b_2 & b_3 & b_4
-\end{bmatrix}
+\texttt{inputs\_embeds}[b,t]
 =
-\begin{bmatrix}
-a_1+b_1 & a_2+b_2 & a_3+b_3 & a_4+b_4
-\end{bmatrix}
+W_{\text{embedding}}[
+    \texttt{input\_ids}[b,t]
+]
 $$
 
-### Exemplo: “gato” na posição 1
-
-Considere a frase “o gato dorme”, com as posições contadas a partir de zero:
-
-| Posição | Token |
-| ---: | --- |
-| 0 | o |
-| 1 | gato |
-| 2 | dorme |
-
-O embedding do token “gato” é:
+Aqui, $b$ é o índice da frase no lote e $t$ é a posição do subtoken. Se um
+subtoken tem ID 45, seu vetor é exatamente:
 
 $$
-E[45] =
-\begin{bmatrix}
--0{,}3 & 0{,}1 & 0{,}7 & 0{,}5
-\end{bmatrix}
+\mathbf{e} = W_{\text{embedding}}[45]
 $$
 
-O vetor da posição 1 é:
+Não há uma multiplicação entre o ID e a matriz. `nn.Embedding` realiza uma
+consulta indexada: copia as linhas indicadas pelos IDs para o tensor de saída.
+
+Para um lote com $B$ frases, sequências de tamanho $T$ e vetores de dimensão
+$D$, os formatos são:
 
 $$
-P[1] =
-\begin{bmatrix}
-0{,}2 & 0{,}7 & -0{,}2 & 0{,}2
-\end{bmatrix}
+\texttt{input\_ids} \in \mathbb{N}^{B \times T}
 $$
 
-Somando os vetores:
-
 $$
-\begin{aligned}
-X_{\text{gato}}
-&= E[45] + P[1] \\
-&=
-\begin{bmatrix}
--0{,}3 & 0{,}1 & 0{,}7 & 0{,}5
-\end{bmatrix}
-+
-\begin{bmatrix}
-0{,}2 & 0{,}7 & -0{,}2 & 0{,}2
-\end{bmatrix} \\
-&=
-\begin{bmatrix}
--0{,}1 & 0{,}8 & 0{,}5 & 0{,}7
-\end{bmatrix}
-\end{aligned}
+\texttt{inputs\_embeds} \in \mathbb{R}^{B \times T \times D}
 $$
 
-Verificando cada dimensão:
+No exemplo padrão:
 
-$$
-\begin{aligned}
--0{,}3 + 0{,}2 &= -0{,}1 \\
-\phantom{-}0{,}1 + 0{,}7 &= \phantom{-}0{,}8 \\
-\phantom{-}0{,}7 - 0{,}2 &= \phantom{-}0{,}5 \\
-\phantom{-}0{,}5 + 0{,}2 &= \phantom{-}0{,}7
-\end{aligned}
-$$
+```text
+input_ids.shape    = (1, 5)
+inputs_embeds.shape = (1, 5, 128)
+```
 
-O resultado é:
+## 5. `attention_mask`
+
+Frases diferentes podem possuir quantidades diferentes de subtokens. Para
+colocá-las no mesmo lote, o tokenizador completa as menores com tokens de
+padding.
+
+A máscara distingue conteúdo real de preenchimento:
+
+```text
+1 = subtoken real
+0 = padding
+```
+
+Para uma sequência sem padding:
+
+```text
+attention_mask = [[1, 1, 1, 1, 1]]
+```
+
+Para uma sequência com duas posições preenchidas artificialmente:
+
+```text
+attention_mask = [[1, 1, 1, 0, 0]]
+```
+
+A camada `nn.Embedding` ainda produz vetores para os IDs presentes nas posições
+de padding. A máscara será usada na atenção para impedir que essas posições
+sejam tratadas como conteúdo da frase.
+
+## 6. `position_ids` e RoPE
+
+O script também prepara os índices de posição:
+
+```text
+position_ids = [[0, 1, 2, 3, 4]]
+```
+
+No Qwen3, esses índices **não selecionam vetores posicionais para somar ao token
+embedding**. A ordem das operações é:
+
+1. `input_ids` seleciona linhas de `embed_tokens`;
+2. o resultado é armazenado em `inputs_embeds`;
+3. projeções posteriores criam Query, Key e Value;
+4. RoPE usa `position_ids` para aplicar rotações em Query e Key;
+5. a self-attention utiliza os valores transformados.
+
+Assim, na etapa estudada pelo programa:
 
 $$
 \boxed{
-X_{\text{gato}} =
-\begin{bmatrix}
--0{,}1 & 0{,}8 & 0{,}5 & 0{,}7
-\end{bmatrix}
+\text{input embedding} = \text{token embedding}
 }
 $$
 
-Esse é o vetor que representa simultaneamente o token “gato” e sua posição na frase.
+A informação de posição entra posteriormente no cálculo da atenção. Ela não é
+ignorada; apenas é incorporada de outra maneira e em outro ponto da arquitetura.
 
-## 7. Entrada de uma frase inteira
+## 7. Comparação com outras arquiteturas
 
-O cálculo é repetido para todos os tokens da frase:
+Nem todo Transformer trata posição como o Qwen3.
 
-$$
-X_i = E[t_i] + P[i]
-$$
-
-Empilhando todos os vetores finais:
-
-$$
-X =
-\begin{bmatrix}
-E[t_0] + P[0] \\
-E[t_1] + P[1] \\
-\vdots \\
-E[t_{n-1}] + P[n-1]
-\end{bmatrix}
-\in \mathbb{R}^{n \times d_{\text{model}}}
-$$
-
-A matriz $X$ é enviada ao primeiro bloco do Transformer. Em implementações reais, ainda pode haver uma operação de **dropout** antes da entrada no primeiro bloco.
-
-## 8. Observação sobre o Transformer original
-
-No artigo *Attention Is All You Need*, o token embedding é multiplicado por $\sqrt{d_{\text{model}}}$ antes da soma com o positional encoding:
+No Transformer original, embeddings dos tokens são escalados e somados a um
+positional encoding senoidal:
 
 $$
 X_i = \sqrt{d_{\text{model}}}\,E[t_i] + PE(i)
 $$
 
-Como $d_{\text{model}}=4$:
-
-$$
-\sqrt{d_{\text{model}}} = \sqrt{4} = 2
-$$
-
-O exemplo numérico deste texto usa a versão simplificada:
+Outras arquiteturas podem usar embeddings posicionais aprendidos:
 
 $$
 X_i = E[t_i] + P[i]
 $$
 
-Por isso, o fator $\sqrt{d_{\text{model}}}$ não foi aplicado às contas anteriores.
-
-## Resumo das fórmulas
-
-### Inicialização adotada no exemplo
+Já uma arquitetura com RoPE, como o Qwen3, primeiro faz:
 
 $$
-\mu = 0,
-\qquad
-\sigma = \frac{1}{\sqrt{d}}
+X_i = E[t_i]
 $$
 
-$$
-z_j \sim \mathcal{N}(0,1)
-$$
+e incorpora a posição posteriormente em Query e Key. Portanto, as fórmulas de
+soma posicional são corretas para certas arquiteturas, mas não descrevem a etapa
+de input embedding implementada neste exemplo.
+
+## 8. Inicialização não é aprendizado
+
+No início do treinamento, duas linhas da matriz podem ser próximas ou distantes
+apenas por acaso. Os vetores começam a representar padrões úteis quando o
+treinamento calcula gradientes e atualiza os pesos:
 
 $$
-e_j = \mu + \sigma z_j
+W_{\text{embedding}}
+\leftarrow
+W_{\text{embedding}}
+- \eta\nabla_{W_{\text{embedding}}}\mathcal{L}
 $$
 
-### Consulta do embedding
+Nessa expressão:
 
-$$
-\mathbf{e}_{\text{token}} = E[\text{ID do token}]
-$$
+- $\eta$ é a taxa de aprendizado;
+- $\mathcal{L}$ é a função de perda;
+- o gradiente indica como alterar os pesos para reduzir o erro.
 
-### Adição da posição
+Em um modelo já treinado, a tabela não é reinicializada aleatoriamente: seus
+valores são carregados do checkpoint.
 
-$$
-X_i = E[t_i] + P[i]
-$$
+## 9. Como executar
 
-### Entrada da frase
+Crie e ative um ambiente virtual:
 
-$$
-X \in \mathbb{R}^{n \times d_{\text{model}}}
-$$
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
-## Ideia principal
+Instale as versões validadas:
 
-O processo pode ser resumido assim:
+```bash
+python -m pip install -r requirements.txt
+```
 
-1. o tokenizer converte o texto em IDs;
-2. cada ID seleciona uma linha da matriz de embeddings;
-3. cada embedding recebe informação sobre sua posição;
-4. os vetores resultantes formam a matriz de entrada do Transformer;
-5. durante o treinamento, os embeddings são ajustados para representar padrões úteis dos dados.
+Execute o modo didático:
+
+```bash
+python input_embedding_o_gato_dorme.py
+```
+
+Use a dimensão original do Qwen3-0.6B:
+
+```bash
+python input_embedding_o_gato_dorme.py --dimensao-original
+```
+
+Experimente um lote com outros textos:
+
+```bash
+python input_embedding_o_gato_dorme.py \
+    --texto "o gato dorme" "a gata corre"
+```
+
+Na primeira execução, o tokenizador e a configuração são obtidos do Hugging
+Face e armazenados no cache local. Os pesos completos do modelo não são
+necessários para este exercício.
+
+## Resumo
+
+1. o tokenizador transforma texto em subtokens e IDs;
+2. cada ID seleciona uma linha de $W_{\text{embedding}}$;
+3. a saída possui um vetor para cada posição da sequência;
+4. `attention_mask` identifica conteúdo real e padding;
+5. no Qwen3, RoPE incorpora posição mais tarde em Query e Key;
+6. vetores aleatórios só adquirem padrões úteis durante o treinamento.
