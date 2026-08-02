@@ -1,0 +1,3 @@
+# Versoes validadas com Python 3.13 para reproduzir o exemplo.
+torch==2.13.0
+transformers==5.14.1
