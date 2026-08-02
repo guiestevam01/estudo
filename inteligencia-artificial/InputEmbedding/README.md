@@ -47,6 +47,19 @@ O diretório `.venv` é local e não deve ser enviado ao Git.
 
 ## Execução rápida
 
+Com o ambiente preparado, os comandos mais comuns podem ser executados pelo
+`Makefile`:
+
+```bash
+make run
+make experiment
+make test
+make check
+```
+
+Use `make help` para consultar a finalidade de cada comando. A execução direta
+com Python continua disponível:
+
 ```bash
 python input_embedding_o_gato_dorme.py
 ```
@@ -118,6 +131,7 @@ inválidas.
 ```text
 InputEmbedding/
 ├── README.md
+├── Makefile
 ├── input_embedding_o_gato_dorme.py
 ├── requirements.txt
 ├── sobreEmbedding.md
@@ -126,6 +140,7 @@ InputEmbedding/
 
 - [`input_embedding_o_gato_dorme.py`](input_embedding_o_gato_dorme.py): exemplo
   executável e comentado;
+- [`Makefile`](Makefile): atalhos para preparar, executar e validar o projeto;
 - [`sobreEmbedding.md`](sobreEmbedding.md): explicação conceitual completa e
   resultados dos experimentos;
 - [`test_input_embedding.py`](test_input_embedding.py): testes automatizados;
