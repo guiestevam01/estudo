@@ -1,0 +1,195 @@
+# Inicialização de embeddings com a distribuição de Gauss
+
+## 1. Do dataset ao vocabulário
+
+O processo começa com o **dataset**:
+
+1. O **tokenizer** divide o texto em tokens.
+2. Os tokens formam um **vocabulário**.
+3. Cada token recebe um identificador numérico (**ID**).
+
+Exemplo:
+
+$$
+\text{gato} \longrightarrow \text{ID }45
+$$
+
+Depois, cada ID é associado a um vetor com $d_{\text{model}}$ dimensões.
+
+Neste exemplo:
+
+$$
+d_{\text{model}}=d=4
+$$
+
+Portanto, o token **gato** precisa de quatro valores:
+
+$$
+\mathbf v_{\text{gato}}=
+\begin{bmatrix}
+v_1 & v_2 & v_3 & v_4
+\end{bmatrix}
+$$
+
+## 2. Parâmetros da distribuição Normal
+
+Usamos uma distribuição Normal com média zero:
+
+$$
+\mu=0
+$$
+
+O desvio-padrão é definido por:
+
+$$
+\sigma=\frac{1}{\sqrt d}
+$$
+
+Como $d=4$:
+
+$$
+\sigma
+=\frac{1}{\sqrt 4}
+=\frac{1}{2}
+=0{,}5
+$$
+
+Assim, cada posição do vetor é preenchida com um número sorteado de:
+
+$$
+x_i\sim\mathcal N\!\left(0,0{,}5^2\right)
+$$
+
+> Em $\mathcal N(\mu,\sigma^2)$, o segundo parâmetro é a **variância**. Neste caso, $\sigma^2=0{,}25$.
+
+## 3. Fórmula da distribuição de Gauss
+
+A função densidade da distribuição Normal é:
+
+$$
+f(x)=
+\frac{1}{\sigma\sqrt{2\pi}}
+\exp\!\left(
+-\frac{(x-\mu)^2}{2\sigma^2}
+\right)
+$$
+
+Substituindo $\mu=0$ e $\sigma=0{,}5$:
+
+$$
+f(x)=
+\frac{1}{0{,}5\sqrt{2\pi}}
+\exp\!\left(
+-\frac{x^2}{2(0{,}5)^2}
+\right)
+$$
+
+Essa fórmula descreve a **densidade de probabilidade**: valores próximos de zero são mais prováveis, enquanto valores muito negativos ou muito positivos são menos prováveis.
+
+## 4. Como sortear cada valor
+
+Primeiro, sorteamos um valor de uma Normal padrão:
+
+$$
+z_i\sim\mathcal N(0,1)
+$$
+
+Depois, ajustamos esse valor para a média e o desvio-padrão desejados:
+
+$$
+x_i=\mu+\sigma z_i
+$$
+
+Como $\mu=0$ e $\sigma=0{,}5$:
+
+$$
+x_i=0+0{,}5z_i
+$$
+
+### Exemplo para a primeira dimensão
+
+Suponha que o primeiro número sorteado seja:
+
+$$
+z_1=-0{,}6
+$$
+
+Então:
+
+$$
+\begin{aligned}
+x_1&=\mu+\sigma z_1\\
+   &=0+0{,}5(-0{,}6)\\
+   &=-0{,}3
+\end{aligned}
+$$
+
+Logo:
+
+$$
+v_1=-0{,}3
+$$
+
+O mesmo processo é repetido independentemente para $v_2$, $v_3$ e $v_4$.
+
+## 5. Vetor resultante do exemplo
+
+Os valores anotados formam aproximadamente:
+
+$$
+\mathbf v_{\text{gato}}
+=
+\begin{bmatrix}
+-0{,}3 & 0{,}1 & 0{,}7 & 0{,}7
+\end{bmatrix}
+$$
+
+Assim, a linha correspondente ao ID 45 na matriz de embeddings fica:
+
+$$
+E_{45,:}=\mathbf v_{\text{gato}}
+$$
+
+ou:
+
+$$
+\text{ID }45
+\longrightarrow
+\begin{bmatrix}
+-0{,}3 & 0{,}1 & 0{,}7 & 0{,}7
+\end{bmatrix}
+$$
+
+> O último algarismo do vetor está pouco nítido no manuscrito; ele foi transcrito como $0{,}7$ pela semelhança com o valor anterior.
+
+## Resumo das fórmulas
+
+$$
+d=4
+$$
+
+$$
+\mu=0
+$$
+
+$$
+\sigma=\frac{1}{\sqrt d}=\frac{1}{\sqrt 4}=0{,}5
+$$
+
+$$
+z_i\sim\mathcal N(0,1)
+$$
+
+$$
+x_i=\mu+\sigma z_i
+$$
+
+$$
+x_i\sim\mathcal N\!\left(0,0{,}5^2\right)
+$$
+
+$$
+f(x)=
+\frac{1}{0{,}5\sqrt{2\pi}}
+\exp\!\left(-\frac{x^2}{2(0{,}5)^2}\right)
+$$
