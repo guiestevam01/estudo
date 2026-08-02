@@ -390,19 +390,20 @@ def explicar_resultado(
         print(f"position_ids:   {posicoes.detach().cpu().tolist()}")
 
         print("\nBusca linha por linha:")
-        for posicao in range(ids.shape[0]):
-            token_id = int(ids[posicao].item())
-            e_token_real = bool(mascara[posicao].item())
+        for indice_token in range(ids.shape[0]):
+            token_id = int(ids[indice_token].item())
+            e_token_real = bool(mascara[indice_token].item())
             token = tokenizer.convert_ids_to_tokens(token_id)
             rotulo = repr(token) if e_token_real else "<PAD>"
 
             # Prova de que embedding(ID) e exatamente a linha W[ID].
             linha_direta = camada.embed_tokens.weight[token_id]
-            vetor_da_saida = vetores[posicao]
+            vetor_da_saida = vetores[indice_token]
             lookup_correto = torch.equal(linha_direta, vetor_da_saida)
 
             print(
-                f"  posicao {int(posicoes[posicao].item()):>2} | "
+                f"  indice t {indice_token:>2} | "
+                f"position_id {int(posicoes[indice_token].item()):>2} | "
                 f"token {rotulo:<18} | ID {token_id:>6} | "
                 f"W[{token_id}] == saida? {lookup_correto}"
             )
