@@ -313,6 +313,103 @@ Na primeira execução, o tokenizador e a configuração são obtidos do Hugging
 Face e armazenados no cache local. Os pesos completos do modelo não são
 necessários para este exercício.
 
+## 10. Experimento prático: tokens repetidos
+
+O experimento abaixo usa vetores com apenas quatro componentes para permitir a
+visualização completa de cada linha. `--device cpu` torna o resultado
+independente da disponibilidade de GPU, e a seed fixa permite reproduzir os
+mesmos números:
+
+```bash
+python input_embedding_o_gato_dorme.py \
+    --texto "gato gato gato" \
+    --d-model 4 \
+    --mostrar 4 \
+    --device cpu \
+    --seed 42
+```
+
+Resultado observado:
+
+```text
+Tokens reais: ['g', 'ato', 'Ġg', 'ato', 'Ġg', 'ato']
+input_ids:      [70, 4330, 342, 4330, 342, 4330]
+attention_mask: [1, 1, 1, 1, 1, 1]
+position_ids:   [0, 1, 2, 3, 4, 5]
+```
+
+A primeira ocorrência começa a frase e é dividida em `g` + `ato`. Nas duas
+ocorrências seguintes, `Ġg` indica que existe um espaço antes do `g`. Isso
+mostra que uma palavra escrita da mesma forma pode ser representada por uma
+sequência de subtokens diferente conforme seu contexto.
+
+As três ocorrências de `ato` possuem o ID 4330 e produziram exatamente o mesmo
+vetor:
+
+```text
+posição 1 | ID 4330 | [-0.010374, +0.008120, +0.003567, +0.012313]
+posição 3 | ID 4330 | [-0.010374, +0.008120, +0.003567, +0.012313]
+posição 5 | ID 4330 | [-0.010374, +0.008120, +0.003567, +0.012313]
+```
+
+As duas ocorrências de `Ġg`, ambas com ID 342, também produziram vetores iguais:
+
+```text
+posição 2 | ID 342 | [-0.013168, -0.002481, +0.009510, -0.011746]
+posição 4 | ID 342 | [-0.013168, -0.002481, +0.009510, -0.011746]
+```
+
+Em todas as linhas, o programa imprimiu:
+
+```text
+W[ID] == saida? True
+```
+
+Isso comprova duas propriedades:
+
+1. o mesmo ID consulta sempre a mesma linha da tabela durante essa execução;
+2. posições diferentes ainda não alteram o token embedding.
+
+Os `position_ids` são diferentes, mas RoPE só usará essa informação depois,
+quando a atenção criar Query e Key. O tensor final desse experimento tem formato:
+
+```text
+inputs_embeds.shape = (1, 6, 4)
+```
+
+Ou seja: uma frase, seis subtokens e quatro números por subtoken.
+
+## 11. Testes automatizados
+
+Para verificar o comportamento sem acessar a internet ou carregar o
+tokenizador, execute:
+
+```bash
+python -m unittest -v
+```
+
+Os testes usam uma tabela pequena em CPU e verificam:
+
+- se cada ID retorna exatamente a linha correspondente de
+  $W_{\text{embedding}}$;
+- se IDs repetidos retornam vetores iguais;
+- se o formato final é $[B,T,D]$;
+- se a mesma seed reproduz os mesmos pesos;
+- se o padding recebe `position_id` igual a zero;
+- se dtype, IDs ou formatos inválidos são rejeitados.
+
+Resultado validado:
+
+```text
+Ran 7 tests in 0.504s
+
+OK
+```
+
+`OK` significa que todas as propriedades testadas foram satisfeitas. Esses
+testes validam a implementação da camada e a preparação das posições; o
+experimento anterior complementa isso usando o tokenizador real do Qwen3.
+
 ## Resumo
 
 1. o tokenizador transforma texto em subtokens e IDs;
