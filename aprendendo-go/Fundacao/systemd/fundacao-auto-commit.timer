@@ -1,0 +1,10 @@
+[Unit]
+Description=Executa o backup Git automático da Fundacao a cada 15 minutos
+
+[Timer]
+OnCalendar=*:0/15
+Persistent=true
+Unit=fundacao-auto-commit.service
+
+[Install]
+WantedBy=timers.target

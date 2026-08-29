@@ -1,0 +1,2 @@
+1 - Todo arquivo ,go tem um package no seu cabecalho.
+1.1 - O package main é o package principal, isso signfica que onde tem package main se refere ao ponto de entrada da aplicacao. E nesse package é esperado que tenha uma funcao main.

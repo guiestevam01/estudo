@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup Git automático do projeto Fundacao
+
+[Service]
+Type=oneshot
+ExecStart=__PROJECT_DIR__/scripts/auto-commit.sh
