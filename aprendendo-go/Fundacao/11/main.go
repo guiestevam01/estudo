@@ -4,7 +4,7 @@ type Endereco struct{
 	Longradouro string
 	Numero		int
 	Cidade		string
-	Estado		string
+	Estado		string	
 }
 
 type Cliente struct {
