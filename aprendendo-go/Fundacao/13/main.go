@@ -7,20 +7,15 @@ type Endereco struct{
 	Estado		string
 }
 
-type Cliente struct {
+type Client struct {
 	Nome  string
 	Idade int
 	Ativo bool
 	Endereco
 }
-type Pessoa interface{
-	Desativar() // qualquer struct com metodo desativar vai implementar a interface Pessoa 
-}
-func (c Cliente) Desativar(){
-	c.Ativo = false
-}
+
 func main() {
-	gui := Cliente{
+	gui := Client{
 		Nome:  "Guilherme",
 		Idade: 19,
 		Ativo: true,
