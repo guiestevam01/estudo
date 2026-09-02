@@ -1,0 +1,11 @@
+version: '3'
+
+# o que eu quero subir
+services: 
+  goapp:
+    #subir a imagem
+    build: .
+    ports:
+      - "8080:8080"
+    volumes: #guardar dados fora do container de forma persistente (hd separado do container cujo container usa)
+      - .:/app
