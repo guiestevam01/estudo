@@ -32,6 +32,10 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
 .ipynb_checkpoints/
 
 # Ambiente e dados locais
@@ -42,6 +46,7 @@ venv/
 *.sqlite
 *.sqlite3
 .bashrc
+*.log
 .DS_Store
 Thumbs.db
 
