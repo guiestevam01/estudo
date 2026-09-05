@@ -1,0 +1,1 @@
+Como ler um arquivo maior do que a memoria disponivel em um container meu ou algo do tipo?

@@ -62,7 +62,7 @@ Rotas disponíveis:
 | Orientação a objetos | [Classes, composição e encapsulamento](java/objetos) · [curso completo](cursos/java-completo) |
 | Design e arquitetura | [Padrões de projeto](java/padroes-de-projeto) · [system design](systemdesign) |
 | Algoritmos | [Java e C](estrutura-de-dados) |
-| Go | [Fundamentos](aprendendo_go) · [anotações](aprendendo-go) |
+| Go | [Fundamentos e exemplos](aprendendo_go) |
 | Web | [JavaScript](js) · [Node.js](nodejs) · [TypeScript](typescript) |
 | Python | [Fundamentos](python) · [web scraping](webscraping) |
 | Inteligência artificial | [Prompts, agentes e RAG](inteligencia-artificial) |
@@ -78,8 +78,7 @@ Rotas disponíveis:
 ├── java/                        # Java, Spring, JDBC, Hibernate e POO
 ├── estrutura-de-dados/          # Algoritmos e estruturas em Java e C
 ├── cursos/                      # Exercícios guiados por curso
-├── aprendendo-go/               # Anotações de Go
-├── aprendendo_go/               # Estudos práticos de Go
+├── aprendendo_go/               # Fundamentos, exemplos e projetos Go
 ├── inteligencia-artificial/     # IA, agentes, prompts e RAG
 ├── js/, nodejs/, typescript/    # JavaScript e desenvolvimento web
 ├── python/, webscraping/        # Python e automação

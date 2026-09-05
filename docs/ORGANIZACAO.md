@@ -50,8 +50,8 @@ os projetos demonstráveis na primeira leitura.
 Estas áreas foram mantidas intactas para preservar o histórico de estudo e
 precisam de uma decisão manual antes de qualquer movimentação:
 
-- `aprendendo-go/` e `aprendendo_go/`: consolidar em uma única pasta depois de
-	comparar o conteúdo e atualizar os links.
+- `aprendendo_go/`: pasta canônica da trilha Go, com fundamentos, exemplos e
+	projetos práticos reunidos em um único módulo.
 - `hackaton/` e `hackaton (Copy)/`: comparar as versões, escolher a fonte
 	principal e remover a cópia somente depois de confirmar o estado do projeto.
 - diretórios com PDFs, bancos locais, ambientes virtuais ou builds: manter
