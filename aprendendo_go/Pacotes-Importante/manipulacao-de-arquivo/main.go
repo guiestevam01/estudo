@@ -4,38 +4,35 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
-type Conta struct{
-	numero int
-	saldo int
 
+type Student struct {
+	FirstName, lastName, university                string
+	test1Score, test2Score, test3Score, test4Score int
 }
+
 func main() {
-	conta
-	f, err := os.Create("arquivo.txt")
+	var sliceSeparado []string
+	var sla []string
+	file, err := os.Open("grades.csv")
 	if err != nil {
-		panic(err)
+		return
 	}
-	tam, err := f.Write([]byte("escrevendo dados"))
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("Arquivo criado com sucesso, tamanho: %d bytes\n", tam)
-	f.Close()
+	fmt.Println(file)
+	defer file.Close()
 
-	//leitura
-	arquivo, err := os.ReadFile("arquivo.txt")
-	if err != nil {
-		panic(err)
+	f := bufio.NewScanner(file)
+	var st []string
+	for f.Scan() == true {
+		st = append(st, f.Text())
 	}
-	fmt.Printf("Conteudo: %s\n", string(arquivo))
-
-	//stream
-	arq, err := os.Open("arquivo.txt")
-	if err != nil {
-		panic(err)
+	for _, std := range st {
+		sliceSeparado = strings.Split(std, ",")
+		sla = append(sla, sliceSeparado[0])
 	}
-	reader := bufio.NewReader(arq)
-	// de quanto em quanto vai ler?
-
+	//acesso por índice: sliceSeparado[0], [1], [2]...
+	//strconv.Atoi() para converter notas
+	//criação de struct com literal de struct
+	//append() em []Student
 }
