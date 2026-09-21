@@ -15,5 +15,7 @@ func main() {
 	http.ListenAndServe(":8080", mux)
 }
 func CreateUserApi(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("teste"))
+	if r.Method == http.MethodPost {
+		w.Write([]byte("foi post"))
+	}
 }
