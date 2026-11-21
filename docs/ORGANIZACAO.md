@@ -18,7 +18,8 @@ ser executado por outra pessoa.
 | Inteligência artificial | `inteligencia-artificial/` |
 | Cursos e exercícios guiados | `cursos/` |
 | Estudos complementares | `aprendendo-spring/`, `exercicios-js/`, `memoriaava/`, `padroesDeProjeto/`, `trilha/` |
-| Sistemas operacionais | `sistemas-operacionais/` |
+| Sistemas operacionais | [sistemas-operacionais](../sistemas-operacionais/README.md) · [xv6](../sistemas-operacionais/xv6/README.md) |
+
 ## Vitrine e laboratório
 
 ### Vitrine (`projetos/`)
